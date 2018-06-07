@@ -14,3 +14,13 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::post('/task', function (Request $request) {
+
+});
+
+Route::post('/task/{id}', function ($id) {
+
+});
+
+

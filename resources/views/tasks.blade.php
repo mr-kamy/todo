@@ -4,9 +4,8 @@
 
     <div class="card" style="width: 60rem">
         <!--Display Validation Errors-->
-
-
-        <!--New Task Form-->
+    @include('common.errors')
+    <!--New Task Form-->
         <form action="{{ url('task') }}" method="post">
             {{ csrf_field() }}
             <div class="form-row">
@@ -24,40 +23,28 @@
     </div>
 
 
-
-
-    <div class="container" style="margin-top: 20px">
-        <div class="card" style="width: 20rem;">
-            <form>
-                <div class="form-group">
-                    <div class="card-header">
-                        <label for="new_tasks">
-                            Добавление новой задачи
-                        </label>
-                    </div>
-                    <div class="card-body">
-
-                        <input type="text" class="form-control" id="new_tasks" style="margin-bottom: 20px">
-                        <div class="btn-primary btn">Добавить задачу</div>
-
-                    </div>
-                </div>
-            </form>
-        </div>
-        <div class="card" style="width: 20rem">
+    @if (count($tasks) > 0)
+        <div class="card" style="width: 60rem">
             <div class="card-header">
                 Все задачи
             </div>
             <ul class="list-group list-group-flush">
-                <li class="list-group-item">dfdsalfjlsf alkdf
-                    <button class="btn-danger btn">Удалить</button>
-                </li>
-                <li class="list-group-item">dfdsalfjlsf alkdf</li>
-                <li class="list-group-item">dfdsalfjlsf alkdf</li>
-                <li class="list-group-item">dfdsalfjlsf alkdf</li>
+                @foreach($tasks as $task)
+                    <li class="list-group-item">{{ $task->name }}
+                        <form action="{{ url('task/'.$task->id) }}" method="post">
+                            {{ csrf_field() }}
+                            {{ method_field('DELETE') }}
+                            <button class="btn-danger btn">Удалить</button>
+                        </form>
+
+                    </li>
+                @endforeach
             </ul>
         </div>
-    </div>
+        </div>
+    @endif
 
-    <h1>Hello, world!</h1>
+
+
+
 @endsection
